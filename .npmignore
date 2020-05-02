@@ -1,0 +1,5 @@
+tsconfig.json
+src/
+lib/index.test.d.ts
+lib/index.test.js
+lib/index.test.js.map

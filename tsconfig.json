@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "outDir": "./lib/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "ES6",
+        "target": "ES2015",
+        "strictNullChecks": true,
+        "declaration": true,
+        "alwaysStrict": true,
+        "strict": true,
+    },
+    "files": ["src/index.ts", "src/index.test.ts"]
+}
+

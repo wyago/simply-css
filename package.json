@@ -1,0 +1,26 @@
+{
+  "name": "simply-css",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && mocha -r esm lib/**/*.test.js"
+  },
+  "keywords": [
+    "css",
+    "styles",
+    "style",
+    "css-in-js"
+  ],
+  "author": "Wyatt Goodin",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "7.0.2",
+    "@types/chai": "4.2.11",
+    "typescript": "3.8.3",
+    "mocha": "7.1.2",
+    "chai": "4.2.0",
+    "esm": "3.2.25"
+  }
+}
