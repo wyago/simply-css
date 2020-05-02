@@ -14,6 +14,19 @@ describe("simply-css", function() {
 `);
         })
     });
+    
+    it("creates a basic css number property", () => {
+        css({
+            'div.hello': {
+                'opacity': 0,
+            }
+        }, text => {
+            expect(text).equals(`div.hello {
+    opacity: 0;
+}
+`);
+        })
+    });
 
     it("creates multiple css property sets", () => {
         css({

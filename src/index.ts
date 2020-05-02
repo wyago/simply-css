@@ -1,4 +1,4 @@
-export type Selector = { [property: string]: string | Selector };
+export type Selector = { [property: string]: string | number | Selector };
 export type Styles = { [selector: string]: Selector };
 
 /**
@@ -9,7 +9,9 @@ export type Styles = { [selector: string]: Selector };
  * @param css The set of style property maps to use.
  * @param destination A callback for the created css text. Mostly intended for tests.
  */
-export function css(css: Styles, destination: (contents: string) => void = createStyleElement): { [selector: string]: string } {
+export function css<T extends Styles>(
+        css: T,
+        destination: (contents: string) => void = createStyleElement): { [K in keyof T]: K } {
     let text = "";
     const selectorMap: { [selector: string]: string } = {};
     for (const selector of Object.getOwnPropertyNames(css)) {
@@ -18,7 +20,7 @@ export function css(css: Styles, destination: (contents: string) => void = creat
     }
 
     destination(text);
-    return selectorMap;
+    return selectorMap as any;
 }
 
 function createStyleElement(contents: string) {
@@ -35,7 +37,7 @@ function appendProperties(text: string, name: string, selector: Selector) {
     const nested = all.filter(property => property.includes("&"));
     for (const property of simple) {
         const value = selector[property];
-        if (typeof value === "string") {
+        if (typeof value === "string" || typeof value === "number") {
             text += "    " + property + ": " + value + ";\n"
         } else {
             text = appendProperties(text, property, value);
@@ -45,7 +47,7 @@ function appendProperties(text: string, name: string, selector: Selector) {
 
     for (const property of nested) {
         const right = selector[property] ;
-        if (typeof right === "string") {
+        if (typeof right === "string" || typeof right === "number") {
             throw new Error("& nested selector expected an object value");
         }
         text = appendProperties(text, property.replace(/&/g, name), right);
