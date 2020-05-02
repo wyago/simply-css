@@ -52,4 +52,45 @@ div.hello:hover {
 `);
         })
     });
+    
+    it("creates the readme example", () => {
+        css({
+            'div.important': {
+                'animation': 'important-entry 0.1s',
+                'font-weight': 'bold',
+                '&:hover': {
+                    'border': '1px solid black'
+                }
+            },
+            '@keyframes important-entry': {
+                '0%': {
+                    'transform': 'translate(0px, -10px)'
+                },
+                '99%': {
+                    'transform': 'translate(0px, 0px)'
+                },
+                '100%': {
+                }
+            }
+        }, text => {
+            expect(text).equals(`div.important {
+    animation: important-entry 0.1s;
+    font-weight: bold;
+}
+div.important:hover {
+    border: 1px solid black;
+}
+@keyframes important-entry {
+0% {
+    transform: translate(0px, -10px);
+}
+99% {
+    transform: translate(0px, 0px);
+}
+100% {
+}
+}
+`);
+        })
+    });
 })

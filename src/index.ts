@@ -14,7 +14,7 @@ export function css(css: Styles, destination: (contents: string) => void = creat
     const selectorMap: { [selector: string]: string } = {};
     for (const selector of Object.getOwnPropertyNames(css)) {
         selectorMap[selector] = selector;
-        text = createSelector(text, selector, css[selector]);
+        text = appendProperties(text, selector, css[selector]);
     }
 
     destination(text);
@@ -28,13 +28,18 @@ function createStyleElement(contents: string) {
     document.head.appendChild(element);
 }
 
-function createSelector(text: string, name: string, selector: Selector) {
+function appendProperties(text: string, name: string, selector: Selector) {
     text += name + " {\n";
     const all = Object.getOwnPropertyNames(selector);
     const simple = all.filter(property => !property.includes("&"));
     const nested = all.filter(property => property.includes("&"));
     for (const property of simple) {
-        text += "    " + property + ": " + selector[property] + ";\n"
+        const value = selector[property];
+        if (typeof value === "string") {
+            text += "    " + property + ": " + value + ";\n"
+        } else {
+            text = appendProperties(text, property, value);
+        }
     }
     text += "}\n";
 
@@ -43,7 +48,7 @@ function createSelector(text: string, name: string, selector: Selector) {
         if (typeof right === "string") {
             throw new Error("& nested selector expected an object value");
         }
-        text = createSelector(text, property.replace(/&/g, name), right);
+        text = appendProperties(text, property.replace(/&/g, name), right);
     }
     return text;
 }
