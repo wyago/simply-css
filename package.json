@@ -1,8 +1,11 @@
 {
   "name": "simply-css",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "lib/index.js",
+  "repository": {
+    "url": "https://github.com/wyago/simply-css"
+  },
   "scripts": {
     "build": "tsc",
     "test": "npm run build && mocha -r esm lib/**/*.test.js"
