@@ -4,11 +4,11 @@ import { expect } from "chai";
 describe("simply-css", function() {
     it("creates a basic css property set", () => {
         css({
-            'div.hello': {
+            hello: {
                 'background-color': '#f00',
             }
         }, text => {
-            expect(text).equals(`div.hello {
+            expect(text).equals(`.hello {
     background-color: #f00;
 }
 `);
@@ -17,11 +17,11 @@ describe("simply-css", function() {
     
     it("creates a basic css number property", () => {
         css({
-            'div.hello': {
+            hello: {
                 'opacity': 0,
             }
         }, text => {
-            expect(text).equals(`div.hello {
+            expect(text).equals(`.hello {
     opacity: 0;
 }
 `);
@@ -30,17 +30,17 @@ describe("simply-css", function() {
 
     it("creates multiple css property sets", () => {
         css({
-            'div.hello': {
+            hello: {
                 'background-color': '#f00',
             },
-            'span.bye': {
+            bye: {
                 'color': '#0f0'
             }
         }, text => {
-            expect(text).equals(`div.hello {
+            expect(text).equals(`.hello {
     background-color: #f00;
 }
-span.bye {
+.bye {
     color: #0f0;
 }
 `);
@@ -49,17 +49,17 @@ span.bye {
     
     it("creates nested css property sets", () => {
         css({
-            'div.hello': {
+            hello: {
                 'background-color': '#f00',
                 '&:hover': {
                     'background-color': '#00f'
                 }
             },
         }, text => {
-            expect(text).equals(`div.hello {
+            expect(text).equals(`.hello {
     background-color: #f00;
 }
-div.hello:hover {
+.hello:hover {
     background-color: #00f;
 }
 `);
@@ -68,7 +68,7 @@ div.hello:hover {
     
     it("creates the readme example", () => {
         css({
-            'div.important': {
+            important: {
                 'animation': 'important-entry 0.1s',
                 'font-weight': 'bold',
                 '&:hover': {
@@ -86,11 +86,11 @@ div.hello:hover {
                 }
             }
         }, text => {
-            expect(text).equals(`div.important {
+            expect(text).equals(`.important {
     animation: important-entry 0.1s;
     font-weight: bold;
 }
-div.important:hover {
+.important:hover {
     border: 1px solid black;
 }
 @keyframes important-entry {
